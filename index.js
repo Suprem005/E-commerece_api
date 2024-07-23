@@ -1,5 +1,6 @@
 import express from "express";
 import connectDB from "./database-connection/db.connect.js";
+import userRoutes from "./user/user.controller.js";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 connectDB();
 
 // register routes
+app.use(userRoutes);
 
 // network port and server
 const PORT = process.env.PORT;
