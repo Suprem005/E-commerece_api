@@ -56,7 +56,7 @@ const productSchema = new mongoose.Schema({
 });
 
 productSchema.methods.toJSON = function () {
-  let obj = this.toObject();
+  let obj = this.toObject(); //converts BSON to JSON
   delete obj.sellerId;
   return obj;
 };

@@ -1,7 +1,10 @@
 import express from "express";
-import { isSeller } from "../middleware/authentication.middleware.js";
+import { isSeller, isUser } from "../middleware/authentication.middleware.js";
 import validateReqBody from "../middleware/validate.req.body.js";
-import { addProductValidationSchema } from "./product.validation.js";
+import {
+  addProductValidationSchema,
+  paginationDataValidationSchema,
+} from "./product.validation.js";
 import Product from "./product.modle.js";
 import validateMongoIdFromParams from "../middleware/validate.mongo.id.js";
 import checkMongoIdsEquality from "../utils/mongo.id.equality.js";
@@ -116,9 +119,74 @@ router.put(
   }
 );
 
+// * get product details
+
+router.get(
+  "/product/detail/:id",
+  isUser,
+  validateMongoIdFromParams,
+  async (req, res) => {
+    // extract product id from req.params
+    const productId = req.params.id;
+
+    // find product using product id
+    const product = await Product.findOne({ _id: productId });
+    // if not product, throw error
+    if (!product) {
+      return res.status(400).send({ message: "Product does not exists." });
+    }
+    // send res
+    return res
+      .status(400)
+      .send({ message: "Success.", productDetail: product });
+  }
+);
 export default router;
 
-//* list all products
+//* list product by seller
+router.post(
+  "/product/seller/list",
+  isSeller,
+  validateReqBody(paginationDataValidationSchema),
+  async (req, res) => {
+    // extract pagination data from req.body
+    // const data = req.body;
+
+    // const page = data.page;
+    // const limit = data.page;
+    // or
+
+    const { page, limit, searchText } = req.body;
+    // calculate skip
+    const skip = (page - 1) * limit;
+
+    // condition
+
+    let match = { sellerId: req.loggedInUserId };
+
+    if (searchText) {
+      match.name = { $regex: searchText, $options: "i" };
+    }
+
+    const products = await Product.aggregate([
+      {
+        $match: match,
+      },
+      { $skip: skip },
+      { $limit: limit },
+      {
+        $project: {
+          name: 1,
+          price: 1,
+          brand: 1,
+          image: 1,
+          description: { $substr: ["$description", 0, 200] },
+        },
+      },
+    ]);
+    return res.status(200).send({ message: "Success", productList: products });
+  }
+);
 
 // router.get(
 //   "/product/list",
