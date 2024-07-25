@@ -3,19 +3,19 @@ import mongoose from "mongoose";
 // set schema
 const cartSchema = new mongoose.Schema({
   buyerId: {
-    type: mongoose.isObjectId,
+    type: mongoose.ObjectId,
     ref: "User",
     required: true,
   },
   productId: {
-    type: mongoose.isObjectIdOrHexString,
+    type: mongoose.ObjectId,
     ref: "Product",
     required: true,
   },
 
-  orderQuantity: {
+  orderedQuantity: {
     type: Number,
-    required: type,
+    required: true,
     min: 1,
   },
 });
