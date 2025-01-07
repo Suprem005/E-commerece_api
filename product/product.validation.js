@@ -1,9 +1,9 @@
-import Yup from "yup";
+import Yup from 'yup';
 import {
   DEFAULT_LIMIT,
   DEFAULT_PAGE,
   productCategories,
-} from "../constant/general.constant.js";
+} from '../constant/general.constant.js';
 
 export const addProductValidationSchema = Yup.object({
   name: Yup.string().required().trim().max(55),

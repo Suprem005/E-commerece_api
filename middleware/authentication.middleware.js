@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken";
-import User from "../user/user.model.js";
+import jwt from 'jsonwebtoken';
+import User from '../user/user.model.js';
 
 export const isSeller = async (req, res, next) => {
   try {
@@ -8,7 +8,7 @@ export const isSeller = async (req, res, next) => {
 
     // const { authorization } = req.headers;
 
-    const splittedArray = authorization?.split(" ");
+    const splittedArray = authorization?.split(' ');
 
     const token = splittedArray?.length === 2 ? splittedArray[1] : null;
 
@@ -33,7 +33,7 @@ export const isSeller = async (req, res, next) => {
 
     // check if user role is "seller"
     //  if user role is not "seller", throw error
-    if (user.role !== "seller") {
+    if (user.role !== 'seller') {
       throw new Error();
     }
 
@@ -43,7 +43,7 @@ export const isSeller = async (req, res, next) => {
     // call next function
     next();
   } catch (error) {
-    return res.status(401).send({ message: "Unauthorized." });
+    return res.status(401).send({ message: 'Unauthorized.' });
   }
 };
 
@@ -54,7 +54,7 @@ export const isUser = async (req, res, next) => {
 
     // const { authorization } = req.headers;
 
-    const splittedArray = authorization?.split(" ");
+    const splittedArray = authorization?.split(' ');
 
     const token = splittedArray?.length === 2 ? splittedArray[1] : null;
 
@@ -85,7 +85,7 @@ export const isUser = async (req, res, next) => {
     // call next function
     next();
   } catch (error) {
-    return res.status(401).send({ message: "Unauthorized." });
+    return res.status(401).send({ message: 'Unauthorized.' });
   }
 };
 
@@ -96,7 +96,7 @@ export const isBuyer = async (req, res, next) => {
 
     // const { authorization } = req.headers;
 
-    const splittedArray = authorization?.split(" ");
+    const splittedArray = authorization?.split(' ');
 
     const token = splittedArray?.length === 2 ? splittedArray[1] : null;
 
@@ -121,7 +121,7 @@ export const isBuyer = async (req, res, next) => {
 
     // check if user role is "seller"
     //  if user role is not "seller", throw error
-    if (user.role !== "buyer") {
+    if (user.role !== 'buyer') {
       throw new Error();
     }
 
@@ -131,6 +131,6 @@ export const isBuyer = async (req, res, next) => {
     // call next function
     next();
   } catch (error) {
-    return res.status(401).send({ message: "Unauthorized." });
+    return res.status(401).send({ message: 'Unauthorized.' });
   }
 };

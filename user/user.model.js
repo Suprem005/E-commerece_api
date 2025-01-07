@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 //  set / schema/ rule/ structure
 
@@ -35,13 +35,13 @@ const userSchema = new mongoose.Schema({
   gender: {
     type: String,
     required: true,
-    enum: ["male", "female", "other"],
+    enum: ['male', 'female', 'other'],
   },
 
   role: {
     type: String,
     required: true,
-    enum: ["buyer", "seller"],
+    enum: ['buyer', 'seller'],
   },
 });
 
@@ -54,6 +54,6 @@ userSchema.methods.toJSON = function () {
 
 // create table/collection/model
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 export default User;

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const validateMongoIdFromParams = (req, res, next) => {
   // extract id from req.params
@@ -9,7 +9,7 @@ const validateMongoIdFromParams = (req, res, next) => {
 
   // if not validated mongo id, throw error
   if (!isValidId) {
-    return res.status(400).send({ message: "Invalid mongo id" });
+    return res.status(400).send({ message: 'Invalid mongo id' });
   }
 
   // call next function

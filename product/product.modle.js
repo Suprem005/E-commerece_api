@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { productCategories } from "../constant/general.constant.js";
+import mongoose from 'mongoose';
+import { productCategories } from '../constant/general.constant.js';
 
 // set schema
 const productSchema = new mongoose.Schema({
@@ -39,7 +39,7 @@ const productSchema = new mongoose.Schema({
   sellerId: {
     type: mongoose.ObjectId,
     required: true,
-    ref: "User",
+    ref: 'User',
   },
   description: {
     type: String,
@@ -62,6 +62,6 @@ productSchema.methods.toJSON = function () {
 };
 
 // create model
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model('Product', productSchema);
 
 export default Product;
